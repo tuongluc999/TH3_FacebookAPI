@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Facebook API</title>
+    <script>
+        axios.get('https://www.facebook.com/TIENLUC5951071055/feed?fields=comments.summary(true),likes.summary(true)&access_token=EAAKxn8CIchUBABCvclIZCvEuZAbVKqcgbjkFFkQhiOLZAezaaQtQGQ9uDLTFvOtOvack7YXrU82VflZAX7uQdcnqoCFZAdrOo8bDt8ilnOPUpZCySZBdFC5SX1PLgjpqe1RVbZC3szaAI6P2339SqaPdZCadYXzYg3GpBCbzHrHqzmW66crl9WOuY')
+            .then(response => {
+                var outPut = "";
+                var likesCount;
+
+                for (var i = 0; i < 3; i++) {
+                    outPut += "Post " + (i + 1) + ": ";
+                    likesCount += "Likes count post " + (i + 1) + ": " + "";
+                    for (var j = 0; j < response.data.data[i].comments.summary.total_count; j++) {
+                        if (response.data.data[i].comments.data[j].message != null) {
+                            outPut += response.data.data[i].comments.data[j].message + " ";
+                        } else {
+                            outPut += " ";
+                        }
+                    }
+                    likesCount += response.data.data[i].likes.summary.total_count + "<br>";
+                }
+                document.getElementById('output').innerHTML = outPut;
+                document.getElementById('count').innerHTML = likesCount;
+            })
+            .catch(error => console.error(error))
+    </script>
+
+</head>
+
+<body>
+    <div class="content">
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=758249641505301&autoLogAppEvents=1" nonce="VwlLHy55"></script>
+
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FTIENLUC5951071055&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=758249641505301"
+            width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
